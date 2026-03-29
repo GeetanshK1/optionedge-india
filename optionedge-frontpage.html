@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OptionEdge India — Front Page Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Clash+Display:wght@400;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #04080f;
+    --surface:  #080f1a;
+    --card:     #0c1623;
+    --border:   #152236;
+    --accent:   #f0b429;
+    --accent2:  #0ea5e9;
+    --green:    #22d47b;
+    --red:      #f43f5e;
+    --text:     #e2eaf4;
+    --muted:    #4a6580;
+    --fhead:    'Cabinet Grotesk', sans-serif;
+    --fmono:    'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--fmono);
+    overflow-x: hidden;
+  }
+
+  /* Animated radial bg */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -40%;
+    left: -20%;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(240,180,41,0.06) 0%, transparent 65%);
+    pointer-events: none;
+    animation: drift 18s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -30%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 65%);
+    pointer-events: none;
+    animation: drift 22s ease-in-out infinite alternate-reverse;
+    z-index: 0;
+  }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(4%,6%) scale(1.08); }
+  }
+
+  /* Fine grid */
+  .grid-bg {
+    position: fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(240,180,41,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,180,41,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .z1 { position:relative; z-index:1; }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky; top:0; z-index:100;
+    border-bottom: 1px solid var(--border);
+    background: rgba(4,8,15,0.85);
+    backdrop-filter: blur(16px);
+  }
+  .nav-inner {
+    max-width: 1200px; margin:0 auto; padding: 0 28px;
+    height: 62px;
+    display: flex; align-items:center; justify-content:space-between;
+  }
+  .logo {
+    font-family: var(--fhead);
+    font-size: 1.25rem; font-weight: 800;
+    letter-spacing: -0.5px;
+    display: flex; align-items:center; gap:8px;
+  }
+  .logo-dot {
+    width: 8px; height: 8px; border-radius:50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex; align-items:center; gap:28px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted); text-decoration:none;
+    font-size: 0.72rem; letter-spacing:2px; text-transform:uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    background: var(--accent); color: #000;
+    border: none; padding: 9px 20px; border-radius:3px;
+    font-family: var(--fhead); font-weight:700; font-size:0.8rem;
+    cursor:pointer; letter-spacing:0.5px;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background:#ffc84a; transform:translateY(-1px); }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 7px 0; overflow:hidden;
+  }
+  .ticker-inner {
+    display:flex; gap:36px; width:max-content;
+    animation: scroll 28s linear infinite;
+  }
+  @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .tick {
+    display:flex; gap:8px; align-items:center;
+    font-size:0.7rem; white-space:nowrap;
+  }
+  .tick-n { color:var(--muted); }
+  .tick-v { color:var(--text); font-weight:500; }
+  .up  { color:var(--green); }
+  .dn  { color:var(--red); }
+
+  /* ── HERO ── */
+  .hero {
+    max-width:1200px; margin:0 auto; padding:80px 28px 60px;
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+  }
+  .hero-left { animation: fadeUp 0.7s ease both; }
+  .hero-right { animation: fadeUp 0.7s 0.2s ease both; }
+  @keyframes fadeUp {
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  .hero-tag {
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.65rem; letter-spacing:3px; text-transform:uppercase;
+    color:var(--accent); border:1px solid rgba(240,180,41,0.25);
+    padding:5px 14px; border-radius:2px; margin-bottom:24px;
+  }
+  .hero h1 {
+    font-family:var(--fhead);
+    font-size: clamp(2.2rem,4vw,3.6rem);
+    font-weight:800; line-height:1.08; letter-spacing:-1.5px;
+    margin-bottom:20px;
+  }
+  .hero h1 em { font-style:normal; color:var(--accent); }
+  .hero p {
+    color:var(--muted); font-size:0.82rem; line-height:1.9;
+    max-width:460px; margin-bottom:32px;
+  }
+
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .btn-primary {
+    background:var(--accent); color:#000;
+    border:none; padding:13px 28px; border-radius:3px;
+    font-family:var(--fhead); font-weight:800; font-size:0.88rem;
+    cursor:pointer; letter-spacing:0.5px; transition:all 0.2s;
+  }
+  .btn-primary:hover { background:#ffc84a; transform:translateY(-2px); box-shadow:0 6px 24px rgba(240,180,41,0.3); }
+  .btn-ghost {
+    background:transparent; color:var(--text);
+    border:1px solid var(--border); padding:13px 28px; border-radius:3px;
+    font-family:var(--fhead); font-weight:700; font-size:0.88rem;
+    cursor:pointer; transition:all 0.2s;
+  }
+  .btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
+
+  .hero-stats {
+    display:flex; gap:28px; margin-top:36px; padding-top:28px;
+    border-top:1px solid var(--border);
+  }
+  .stat { }
+  .stat-val {
+    font-family:var(--fhead); font-size:1.5rem; font-weight:800;
+    color:var(--accent);
+  }
+  .stat-label { font-size:0.62rem; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-top:2px; }
+
+  /* HERO RIGHT — Market card cluster */
+  .market-cluster { position:relative; }
+
+  .main-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:8px; padding:22px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+  .mc-head {
+    display:flex; justify-content:space-between; align-items:center;
+    margin-bottom:16px;
+  }
+  .mc-name { font-family:var(--fhead); font-size:1rem; font-weight:700; }
+  .mc-live {
+    display:flex; align-items:center; gap:6px;
+    font-size:0.6rem; color:var(--green); letter-spacing:2px;
+  }
+  .mc-live span { width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite; }
+  .mc-price {
+    font-family:var(--fhead); font-size:2.4rem; font-weight:800;
+    letter-spacing:-1px; margin-bottom:4px;
+  }
+  .mc-chg { font-size:0.75rem; color:var(--green); margin-bottom:18px; }
+
+  /* Mini chart line */
+  .mini-chart {
+    height:52px; position:relative; margin-bottom:16px;
+    overflow:hidden;
+  }
+  .mini-chart svg { width:100%; height:100%; }
+
+  .mc-bars {
+    display:grid; grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+  }
+  .mc-bar-item {
+    background:var(--surface); border:1px solid var(--border);
+    padding:8px 10px; border-radius:4px; text-align:center;
+  }
+  .mc-bar-label { font-size:0.58rem; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; }
+  .mc-bar-val { font-size:0.82rem; font-weight:500; margin-top:2px; }
+
+  /* Floating mini cards */
+  .float-card {
+    position:absolute;
+    background:var(--card); border:1px solid var(--border);
+    border-radius:6px; padding:12px 16px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    animation: float 4s ease-in-out infinite alternate;
+  }
+  .float-card.fc1 { top:-28px; right:-20px; animation-delay:0s; }
+  .float-card.fc2 { bottom:-24px; left:-16px; animation-delay:1.5s; }
+  @keyframes float {
+    from{transform:translateY(0)} to{transform:translateY(-8px)}
+  }
+  .fc-sym { font-family:var(--fhead); font-size:0.82rem; font-weight:700; }
+  .fc-val { font-size:0.72rem; margin-top:2px; }
+
+  /* ── SECTION: HOW IT WORKS ── */
+  .section { max-width:1200px; margin:0 auto; padding:70px 28px; }
+  .section-tag {
+    font-size:0.62rem; letter-spacing:3px; text-transform:uppercase;
+    color:var(--accent); margin-bottom:12px;
+  }
+  .section-title {
+    font-family:var(--fhead); font-size:clamp(1.6rem,3vw,2.4rem);
+    font-weight:800; letter-spacing:-1px; margin-bottom:12px;
+  }
+  .section-sub { color:var(--muted); font-size:0.8rem; line-height:1.9; max-width:500px; margin-bottom:48px; }
+
+  .steps-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;
+  }
+  .step-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:6px; padding:24px;
+    position:relative; overflow:hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .step-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+  .step-num {
+    font-family:var(--fhead); font-size:3rem; font-weight:800;
+    color:rgba(240,180,41,0.08); position:absolute;
+    top:10px; right:16px; line-height:1; pointer-events:none;
+  }
+  .step-icon { font-size:1.6rem; margin-bottom:14px; }
+  .step-title { font-family:var(--fhead); font-size:1rem; font-weight:700; margin-bottom:8px; }
+  .step-desc { font-size:0.75rem; color:var(--muted); line-height:1.8; }
+
+  /* ── SECTION: FEATURES ── */
+  .features-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px;
+  }
+  .feat-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:6px; padding:22px;
+    display:flex; gap:16px; align-items:flex-start;
+    transition: border-color 0.2s;
+  }
+  .feat-card:hover { border-color:rgba(240,180,41,0.4); }
+  .feat-icon {
+    width:40px; height:40px; border-radius:6px;
+    background:rgba(240,180,41,0.1); border:1px solid rgba(240,180,41,0.2);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; flex-shrink:0;
+  }
+  .feat-title { font-family:var(--fhead); font-weight:700; font-size:0.92rem; margin-bottom:6px; }
+  .feat-desc { font-size:0.73rem; color:var(--muted); line-height:1.8; }
+  .feat-badge {
+    display:inline-block; font-size:0.55rem; letter-spacing:1.5px;
+    padding:2px 8px; border-radius:2px; margin-top:8px; text-transform:uppercase;
+  }
+  .badge-phase2 { background:rgba(14,165,233,0.1); color:var(--accent2); border:1px solid rgba(14,165,233,0.2); }
+  .badge-phase3 { background:rgba(240,180,41,0.1); color:var(--accent); border:1px solid rgba(240,180,41,0.2); }
+  .badge-phase4 { background:rgba(34,212,123,0.1); color:var(--green); border:1px solid rgba(34,212,123,0.2); }
+
+  /* ── SECTION: TRADE ANALYSIS PREVIEW ── */
+  .analysis-preview {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:10px; padding:28px;
+    max-width:780px; margin:0 auto;
+  }
+  .ap-title {
+    font-family:var(--fhead); font-size:1.1rem; font-weight:800;
+    margin-bottom:6px;
+  }
+  .ap-sub { font-size:0.72rem; color:var(--muted); margin-bottom:24px; }
+
+  .ap-inputs {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+    margin-bottom:20px;
+  }
+  .ap-field { display:flex; flex-direction:column; gap:5px; }
+  .ap-label { font-size:0.6rem; color:var(--muted); letter-spacing:2px; text-transform:uppercase; }
+  .ap-input {
+    background:var(--surface); border:1px solid var(--border);
+    color:var(--text); font-family:var(--fmono); font-size:0.8rem;
+    padding:9px 12px; border-radius:4px;
+  }
+
+  .ap-results {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:6px; padding:20px;
+  }
+  .ap-meter-label {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.7rem; margin-bottom:8px;
+  }
+  .ap-meter-label span:last-child { color:var(--green); font-weight:500; font-size:0.9rem; }
+  .meter-track {
+    height:10px; background:var(--border); border-radius:5px; overflow:hidden;
+    margin-bottom:18px;
+  }
+  .meter-fill {
+    height:100%;
+    background:linear-gradient(90deg, var(--accent2), var(--green));
+    border-radius:5px; width:68%;
+    box-shadow: 0 0 12px rgba(34,212,123,0.4);
+  }
+  .ap-grid {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:10px;
+  }
+  .ap-stat {
+    background:var(--card); border:1px solid var(--border);
+    padding:10px; border-radius:4px; text-align:center;
+  }
+  .ap-stat-label { font-size:0.58rem; color:var(--muted); letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:4px; }
+  .ap-stat-val { font-size:0.88rem; font-weight:500; }
+
+  .verdict-bar {
+    margin-top:16px; padding:12px 16px;
+    border-radius:4px;
+    background:rgba(34,212,123,0.08); border:1px solid rgba(34,212,123,0.2);
+    display:flex; align-items:center; gap:10px;
+    font-size:0.78rem;
+  }
+  .verdict-icon { font-size:1.2rem; }
+  .verdict-text { color:var(--green); font-weight:500; }
+  .verdict-sub { color:var(--muted); font-size:0.7rem; margin-top:2px; }
+
+  /* ── NEWS STRIP ── */
+  .news-strip {
+    background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    padding:10px 0; overflow:hidden;
+  }
+  .news-inner {
+    display:flex; gap:48px; width:max-content;
+    animation:scroll 40s linear infinite;
+  }
+  .news-item {
+    display:flex; gap:10px; align-items:center;
+    font-size:0.7rem; white-space:nowrap;
+  }
+  .news-dot { width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0; }
+  .news-time { color:var(--muted); }
+  .news-text { color:var(--text); }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer-bar {
+    max-width:1200px; margin:0 auto; padding:0 28px 48px;
+  }
+  .disc-box {
+    background:rgba(244,63,94,0.05); border:1px solid rgba(244,63,94,0.2);
+    border-radius:5px; padding:14px 20px;
+    font-size:0.67rem; color:var(--muted); line-height:1.8;
+  }
+  .disc-box strong { color:#f43f5e; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top:1px solid var(--border);
+    padding:28px 0; text-align:center;
+    font-size:0.62rem; color:var(--muted); letter-spacing:1px; line-height:2;
+  }
+
+  /* responsive */
+  @media(max-width:768px){
+    .hero { grid-template-columns:1fr; }
+    .hero-right { display:none; }
+    .ap-inputs { grid-template-columns:1fr 1fr; }
+    .ap-grid { grid-template-columns:1fr 1fr; }
+    .nav-links { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner z1">
+    <div class="logo">
+      <div class="logo-dot"></div>
+      Option<span>Edge</span>&nbsp;India
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Strategy Scan</a></li>
+      <li><a href="#">Trade Analysis</a></li>
+      <li><a href="#">Market Data</a></li>
+      <li><a href="#">News Feed</a></li>
+    </ul>
+    <button class="nav-cta">Launch Scan ↗</button>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker z1">
+  <div class="ticker-inner" id="ticker"></div>
+</div>
+
+<!-- NEWS STRIP -->
+<div class="news-strip z1">
+  <div class="news-inner" id="newsStrip"></div>
+</div>
+
+<!-- HERO -->
+<section class="z1">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag"><span>●</span> NSE · BSE · F&O Intelligence</div>
+      <h1>AI-Powered<br><em>Strategy Scans</em><br>for India Markets</h1>
+      <p>Auto-fetches live market data, news & events. Generates structured F&O Strategy Scans with entry, target, stop-loss & deep analysis — built for Indian traders.</p>
+      <div class="hero-btns">
+        <button class="btn-primary">⚡ Run Strategy Scan</button>
+        <button class="btn-ghost">Analyse My Trade →</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-val">4</div>
+          <div class="stat-label">Scans per run</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">Live</div>
+          <div class="stat-label">NSE/BSE Data</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">Auto</div>
+          <div class="stat-label">News Context</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">Free</div>
+          <div class="stat-label">Always</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — market card -->
+    <div class="hero-right">
+      <div class="market-cluster">
+        <!-- Floating cards -->
+        <div class="float-card fc1">
+          <div class="fc-sym">BANKNIFTY</div>
+          <div class="fc-val up">▲ 48,102 &nbsp;+0.61%</div>
+        </div>
+        <div class="float-card fc2">
+          <div class="fc-sym">INDIA VIX</div>
+          <div class="fc-val dn">▼ 13.42 &nbsp;-3.20%</div>
+        </div>
+
+        <div class="main-card">
+          <div class="mc-head">
+            <div class="mc-name">NIFTY 50</div>
+            <div class="mc-live"><span></span> LIVE</div>
+          </div>
+          <div class="mc-price">22,419</div>
+          <div class="mc-chg">▲ +97.05 &nbsp;(+0.43%)</div>
+
+          <!-- Sparkline -->
+          <div class="mini-chart">
+            <svg viewBox="0 0 300 52" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#22d47b" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#22d47b" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,40 L20,36 L40,38 L60,30 L80,32 L100,24 L120,26 L140,20 L160,22 L180,16 L200,18 L220,12 L240,14 L260,8 L280,10 L300,4" 
+                    fill="none" stroke="#22d47b" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M0,40 L20,36 L40,38 L60,30 L80,32 L100,24 L120,26 L140,20 L160,22 L180,16 L200,18 L220,12 L240,14 L260,8 L280,10 L300,4 L300,52 L0,52Z" 
+                    fill="url(#chartGrad)"/>
+            </svg>
+          </div>
+
+          <div class="mc-bars">
+            <div class="mc-bar-item">
+              <span class="mc-bar-label">PCR</span>
+              <span class="mc-bar-val up">1.24</span>
+            </div>
+            <div class="mc-bar-item">
+              <span class="mc-bar-label">OI</span>
+              <span class="mc-bar-val">2.1Cr</span>
+            </div>
+            <div class="mc-bar-item">
+              <span class="mc-bar-label">IV Rank</span>
+              <span class="mc-bar-val" style="color:var(--accent)">34</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section z1">
+  <div class="section-tag">How It Works</div>
+  <div class="section-title">From market open to<br>Strategy Scan in seconds</div>
+  <div class="section-sub">No manual research needed. Our platform does the heavy lifting — you just decide.</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">📡</div>
+      <div class="step-title">Live Data Fetched</div>
+      <div class="step-desc">Platform auto-pulls NIFTY, BANKNIFTY, VIX, OI, PCR and top F&O stock prices from NSE in real time.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">📰</div>
+      <div class="step-title">News & Events Pulled</div>
+      <div class="step-desc">Finnhub API fetches today's top India market headlines, RBI events, earnings dates — automatically.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">🧠</div>
+      <div class="step-title">AI Analyses Everything</div>
+      <div class="step-desc">Claude AI receives all live data + news context and builds structured strategy scans with full rationale.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-icon">🎯</div>
+      <div class="step-title">You Decide</div>
+      <div class="step-desc">Review entry, target, stop-loss and confidence score. Analyse your own trade setup if needed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section z1" style="padding-top:0">
+  <div class="section-tag">Features</div>
+  <div class="section-title">Everything in one place</div>
+  <div class="section-sub">Built specifically for NSE/BSE F&O traders. No fluff, no noise.</div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">⚡</div>
+      <div>
+        <div class="feat-title">AI Strategy Scans</div>
+        <div class="feat-desc">4 structured F&O scans per run. Each with strategy type, strikes, entry, target, stop-loss, rationale and confidence score.</div>
+        <span class="feat-badge badge-phase2">Phase 2</span>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📊</div>
+      <div>
+        <div class="feat-title">Live Market Data</div>
+        <div class="feat-desc">Real-time NIFTY, BANKNIFTY, FINNIFTY, India VIX, PCR ratio and top F&O stocks. Auto-refreshes every 30 seconds.</div>
+        <span class="feat-badge badge-phase3">Phase 3</span>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📰</div>
+      <div>
+        <div class="feat-title">Auto News & Events</div>
+        <div class="feat-desc">Finnhub API silently feeds today's headlines, RBI meetings, earnings, and F&O events into every Strategy Scan automatically.</div>
+        <span class="feat-badge badge-phase3">Phase 3</span>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔬</div>
+      <div>
+        <div class="feat-title">Trade Analysis Tool</div>
+        <div class="feat-desc">Input entry, target, premium, expiry & hold duration. Get success rate meter, R:R ratio, break-even, theta decay & AI verdict.</div>
+        <span class="feat-badge badge-phase3">Phase 3</span>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📈</div>
+      <div>
+        <div class="feat-title">Options Greeks</div>
+        <div class="feat-desc">Delta, Theta, IV displayed per scan. Know exactly how time and volatility affect your position before entering.</div>
+        <span class="feat-badge badge-phase4">Phase 4</span>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🛡️</div>
+      <div>
+        <div class="feat-title">Risk Management</div>
+        <div class="feat-desc">Max 1–2% capital per trade warning and stop-loss discipline reminder built into every single scan. Always visible.</div>
+        <span class="feat-badge badge-phase2">Phase 2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADE ANALYSIS PREVIEW -->
+<section class="section z1" style="padding-top:0">
+  <div class="section-tag">Trade Analysis Tool</div>
+  <div class="section-title">Analyse before you trade</div>
+  <div class="section-sub">Enter your trade details — AI instantly calculates success probability, risk-reward and tells you if the setup is worth it.</div>
+
+  <div class="analysis-preview">
+    <div class="ap-title">Trade Analysis</div>
+    <div class="ap-sub">Enter your trade details below</div>
+    <div class="ap-inputs">
+      <div class="ap-field">
+        <span class="ap-label">Entry Price</span>
+        <div class="ap-input">₹ 22,350</div>
+      </div>
+      <div class="ap-field">
+        <span class="ap-label">Target Level</span>
+        <div class="ap-input">₹ 22,700</div>
+      </div>
+      <div class="ap-field">
+        <span class="ap-label">Premium Paid</span>
+        <div class="ap-input">₹ 120</div>
+      </div>
+      <div class="ap-field">
+        <span class="ap-label">Expiry Date</span>
+        <div class="ap-input">03 Apr 2026</div>
+      </div>
+      <div class="ap-field">
+        <span class="ap-label">Hold Duration</span>
+        <div class="ap-input">2 Days</div>
+      </div>
+      <div class="ap-field">
+        <span class="ap-label">Quantity (Lots)</span>
+        <div class="ap-input">1 Lot (50 qty)</div>
+      </div>
+    </div>
+
+    <div class="ap-results">
+      <div class="ap-meter-label">
+        <span style="font-size:0.65rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase">Success Probability</span>
+        <span>68%</span>
+      </div>
+      <div class="meter-track"><div class="meter-fill"></div></div>
+      <div class="ap-grid">
+        <div class="ap-stat">
+          <span class="ap-stat-label">Risk : Reward</span>
+          <span class="ap-stat-val up">1 : 2.9</span>
+        </div>
+        <div class="ap-stat">
+          <span class="ap-stat-label">Max Profit</span>
+          <span class="ap-stat-val up">₹ 17,500</span>
+        </div>
+        <div class="ap-stat">
+          <span class="ap-stat-label">Max Loss</span>
+          <span class="ap-stat-val dn">₹ 6,000</span>
+        </div>
+        <div class="ap-stat">
+          <span class="ap-stat-label">Break-even</span>
+          <span class="ap-stat-val" style="color:var(--accent)">22,470</span>
+        </div>
+      </div>
+      <div class="verdict-bar">
+        <div class="verdict-icon">✅</div>
+        <div>
+          <div class="verdict-text">Strong Setup — Favourable R:R with adequate time buffer</div>
+          <div class="verdict-sub">⚠ Theta decay ~₹18/day. Consider exiting by Day 1 if target not hit.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-bar z1">
+  <div class="disc-box">
+    <strong>⚠ IMPORTANT DISCLAIMER:</strong> OptionEdge India is a private educational tool for a closed group of traders. All Strategy Scans are AI-generated for informational purposes only and do NOT constitute financial advice, recommendations or signals. We are NOT SEBI registered. Options trading involves substantial risk of loss. Always consult a SEBI-registered investment advisor before trading. Past analysis does not guarantee future results. Never risk more than 1–2% of your capital on any single trade.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="z1">
+  OptionEdge India &nbsp;·&nbsp; Private Group Platform &nbsp;·&nbsp; NSE / BSE F&O Segment<br>
+  Powered by Claude AI &nbsp;·&nbsp; Not SEBI Registered &nbsp;·&nbsp; For Educational Use Only
+</footer>
+
+<script>
+// TICKER
+const ticks = [
+  {n:"NIFTY 50",v:"22,419",c:"+0.43%",up:true},
+  {n:"BANKNIFTY",v:"48,102",c:"+0.61%",up:true},
+  {n:"FINNIFTY",v:"21,890",c:"-0.12%",up:false},
+  {n:"INDIA VIX",v:"13.42",c:"-3.20%",up:false},
+  {n:"USDINR",v:"83.72",c:"+0.08%",up:true},
+  {n:"RELIANCE",v:"2,941",c:"+1.14%",up:true},
+  {n:"HDFC BANK",v:"1,612",c:"+0.82%",up:true},
+  {n:"INFOSYS",v:"1,478",c:"-0.55%",up:false},
+  {n:"TCS",v:"3,891",c:"+0.27%",up:true},
+  {n:"TATAMOTORS",v:"968",c:"+2.31%",up:true},
+  {n:"ICICI BANK",v:"1,089",c:"+1.02%",up:true},
+  {n:"ADANIENT",v:"2,456",c:"-1.43%",up:false},
+];
+const doubled = [...ticks,...ticks];
+document.getElementById('ticker').innerHTML = doubled.map(t=>`
+  <div class="tick">
+    <span class="tick-n">${t.n}</span>
+    <span class="tick-v">${t.v}</span>
+    <span class="${t.up?'up':'dn'}">${t.c}</span>
+  </div>`).join('');
+
+// NEWS
+const news = [
+  {time:"09:32",text:"RBI holds repo rate at 6.25% — markets react positively"},
+  {time:"09:45",text:"NIFTY reclaims 22,400 amid broad-based buying"},
+  {time:"10:01",text:"TATAMOTORS Q4 results today after market hours"},
+  {time:"10:14",text:"FIIs net buyers of ₹1,240 Cr in equity segment"},
+  {time:"10:28",text:"BANKNIFTY weekly expiry: 48,000 CE sees heavy writing"},
+  {time:"10:35",text:"India VIX falls 3.2% — options sellers in advantage"},
+  {time:"10:52",text:"HDFC Bank hits fresh 52-week high of ₹1,618"},
+  {time:"11:04",text:"Nifty IT index up 0.8% tracking Nasdaq overnight gains"},
+];
+const doubledNews = [...news,...news];
+document.getElementById('newsStrip').innerHTML = doubledNews.map(n=>`
+  <div class="news-item">
+    <div class="news-dot"></div>
+    <span class="news-time">${n.time}</span>
+    <span class="news-text">${n.text}</span>
+  </div>`).join('');
+</script>
+</body>
+</html>
